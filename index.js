@@ -79,7 +79,7 @@ const addItemToOldList = (itemValue, itemId) => {
   newEl.id = itemId;
   newEl.draggable = true;
   newEl.className = "old--list--item";
-  newEl.addEventListener("drag", () => {
+  newEl.addEventListener("touchmove", () => {
     deleteItemOldList(itemId);
   });
   newEl.addEventListener("click", (event) => {
