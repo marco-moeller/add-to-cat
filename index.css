@@ -62,10 +62,19 @@ ul li {
 }
 ul li:hover {
   cursor: pointer;
-  background-color: #ffecc7;
 }
 
 button:hover {
   cursor: pointer;
-  background-color: #432000;
+}
+
+.old--list--item {
+  background-color: grey;
+  color: white;
+}
+
+.divider {
+  width: 300px;
+  height: 2px;
+  background-color: #dce1eb;
 }
