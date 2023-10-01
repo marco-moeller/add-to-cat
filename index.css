@@ -59,6 +59,7 @@ ul li {
   border-radius: 8px;
   text-align: center;
   flex-grow: 1;
+  text-transform: capitalize;
 }
 ul li:hover {
   cursor: pointer;
