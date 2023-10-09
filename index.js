@@ -20,18 +20,44 @@ const inputFieldEl = document.querySelector("#input-field");
 const shoppingListEl = document.querySelector("#shopping-list");
 const oldItemsListEl = document.querySelector("#old-items-list");
 
+let shoppingList = [];
+let oldItemList = [];
+
 const addBtn = document.querySelector("#add-button");
 addBtn.addEventListener("click", () => {
-  addItemToShoppingList(inputFieldEl.value);
-
-  push(shoppingListInDB, inputFieldEl.value);
-  clearInput();
+  buttonClick();
 });
+
+const buttonClick = () => {
+  if (!isInList(inputFieldEl.value.toLowerCase())) {
+    push(shoppingListInDB, inputFieldEl.value.toLowerCase());
+  }
+  clearInput();
+};
+
+const isInList = (newItem) => {
+  let isInShoppingList = false;
+  let isInOldList = false;
+  shoppingList.map((element) => {
+    if (element.includes(newItem)) {
+      isInShoppingList = true;
+    }
+  });
+  oldItemList.map((element) => {
+    if (element.includes(newItem)) {
+      isInOldList = true;
+    }
+  });
+  console.log(isInShoppingList);
+  console.log(isInOldList);
+
+  return isInShoppingList || isInOldList;
+};
 
 onValue(shoppingListInDB, (snapshot) => {
   clearShoppingList();
   if (snapshot.exists()) {
-    let shoppingList = Object.entries(snapshot.val());
+    shoppingList = Object.entries(snapshot.val());
     addListFromDatabaseToShoppingList(shoppingList);
   } else {
     shoppingListEl.innerHTML = "No Items Here Yet :(";
@@ -41,7 +67,7 @@ onValue(shoppingListInDB, (snapshot) => {
 onValue(oldItemsListInDB, (snapshot) => {
   clearOldList();
   if (snapshot.exists()) {
-    let oldItemList = Object.entries(snapshot.val());
+    oldItemList = Object.entries(snapshot.val());
     addListFromDatabaseToOldList(oldItemList);
   } else {
     oldItemsListEl.innerHTML = "";
