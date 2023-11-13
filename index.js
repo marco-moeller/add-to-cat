@@ -19,6 +19,7 @@ const oldItemsListInDB = ref(database, "oldItemsList");
 const inputFieldEl = document.querySelector("#input-field");
 const shoppingListEl = document.querySelector("#shopping-list");
 const oldItemsListEl = document.querySelector("#old-items-list");
+const popupEl = document.querySelector("#popup");
 
 let shoppingList = [];
 let oldItemList = [];
@@ -106,11 +107,12 @@ const addItemToOldList = (itemValue, itemId) => {
   newEl.draggable = true;
   newEl.className = "old--list--item";
   newEl.addEventListener("touchmove", () => {
+    renderPopup(itemValue);
     deleteItemOldList(itemId);
   });
   newEl.addEventListener("click", (event) => {
     push(shoppingListInDB, itemValue);
-    deleteItemOldList(itemId);
+    deleteItemOldList(itemId, itemValue);
   });
   oldItemsListEl.append(newEl);
 };
@@ -133,4 +135,16 @@ const deleteItemShoppingList = (id) => {
 
 const deleteItemOldList = (id) => {
   remove(ref(database, `oldItemsList/${id}`));
+};
+
+const renderPopup = (value) => {
+  togglePopup();
+  popupEl.textContent = `${value} deleted`;
+  setTimeout(() => {
+    togglePopup();
+  }, 500);
+};
+
+const togglePopup = () => {
+  popupEl.classList.toggle("hidden");
 };

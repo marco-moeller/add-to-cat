@@ -9,13 +9,14 @@ body {
   user-select: none;
 }
 
-.header--container {
+main {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 30px auto;
   gap: 10px;
   max-width: 320px;
+  position: relative;
 }
 
 img {
@@ -30,6 +31,7 @@ input {
 button {
   color: #fdfdfd;
   background-color: #ac485a;
+  text-transform: uppercase;
 }
 button,
 input {
@@ -78,4 +80,22 @@ button:hover {
   width: 300px;
   height: 2px;
   background-color: #dce1eb;
+}
+
+.popup {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.75);
+  color: black;
+  padding: 1em;
+}
+
+/* -- UTILITY -- */
+
+.hidden {
+  display: none;
+  opacity: 0;
 }
