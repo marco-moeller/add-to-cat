@@ -103,6 +103,7 @@ const addItemToShoppingList = (itemValue, itemId) => {
       function: () => {
         addItemToOldList(itemValue, itemId);
         push(oldItemsListInDB, itemValue);
+        deleteItemShoppingList(itemId);
       },
     },
   ]);
