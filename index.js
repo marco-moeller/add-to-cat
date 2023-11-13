@@ -116,11 +116,15 @@ const addItemToOldList = (itemValue, itemId) => {
 };
 
 const addListFromDatabaseToShoppingList = (shoppingListArray) => {
-  shoppingListArray.map((e) => addItemToShoppingList(e[1], e[0]));
+  shoppingListArray
+    .sort((a, b) => a[1].localeCompare(b[1]))
+    .map((e) => addItemToShoppingList(e[1], e[0]));
 };
 
 const addListFromDatabaseToOldList = (oldListArray) => {
-  oldListArray.map((e) => addItemToOldList(e[1], e[0]));
+  oldListArray
+    .sort((a, b) => a[1].localeCompare(b[1]))
+    .map((e) => addItemToOldList(e[1], e[0]));
 };
 
 const deleteItemShoppingList = (id) => {
