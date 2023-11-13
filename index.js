@@ -23,6 +23,16 @@ const oldItemsListEl = document.querySelector("#old-items-list");
 let shoppingList = [];
 let oldItemList = [];
 
+const recycleBinEl = document.querySelector("#recycle-bin");
+recycleBinEl.addEventListener("drop", (event) => {
+  event.preventDefault();
+  deleteItemOldList(event.dataTransfer.getData("text/plain"));
+  deleteItemShoppingList(event.dataTransfer.getData("text/plain"));
+});
+recycleBinEl.addEventListener("dragover", (event) => {
+  event.preventDefault();
+});
+
 const addBtn = document.querySelector("#add-button");
 addBtn.addEventListener("click", () => {
   buttonClick();
@@ -87,32 +97,43 @@ const clearOldList = () => {
 };
 
 const addItemToShoppingList = (itemValue, itemId) => {
-  let newEl = document.createElement("li");
-  newEl.innerHTML = itemValue;
-  newEl.id = itemId;
-  newEl.className = "shopping--list--item";
-  newEl.addEventListener("click", () => {
-    addItemToOldList(itemValue, itemId);
-    push(oldItemsListInDB, itemValue);
-    deleteItemShoppingList(itemId);
-  });
+  const newEl = createNewItem(itemValue, itemId, "shopping--list--item", [
+    {
+      type: "click",
+      function: () => {
+        addItemToOldList(itemValue, itemId);
+        push(oldItemsListInDB, itemValue);
+      },
+    },
+  ]);
   shoppingListEl.append(newEl);
 };
 
 const addItemToOldList = (itemValue, itemId) => {
+  const newEl = createNewItem(itemValue, itemId, "old--list--item", [
+    {
+      type: "click",
+      function: () => {
+        push(shoppingListInDB, itemValue);
+        deleteItemOldList(itemId, itemValue);
+      },
+    },
+  ]);
+
+  oldItemsListEl.append(newEl);
+};
+
+const createNewItem = (itemValue, itemId, className, eventhandlerList) => {
   let newEl = document.createElement("li");
   newEl.innerHTML = itemValue;
   newEl.id = itemId;
   newEl.draggable = true;
-  newEl.className = "old--list--item";
-  newEl.addEventListener("touchmove", () => {
-    deleteItemOldList(itemId, itemValue);
-  });
-  newEl.addEventListener("click", () => {
-    push(shoppingListInDB, itemValue);
-    deleteItemOldList(itemId, itemValue);
-  });
-  oldItemsListEl.append(newEl);
+  newEl.addEventListener("dragstart", dragstartHandler);
+  newEl.className = className;
+  eventhandlerList.map((eventHandler) =>
+    newEl.addEventListener(eventHandler.type, eventHandler.function)
+  );
+  return newEl;
 };
 
 const addListFromDatabaseToShoppingList = (shoppingListArray) => {
@@ -131,6 +152,10 @@ const deleteItemShoppingList = (id) => {
   remove(ref(database, `shoppingList/${id}`));
 };
 
-const deleteItemOldList = (id, value) => {
+const deleteItemOldList = (id) => {
   remove(ref(database, `oldItemsList/${id}`));
+};
+
+const dragstartHandler = (ev) => {
+  ev.dataTransfer.setData("text/plain", ev.target.id);
 };
