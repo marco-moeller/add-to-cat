@@ -107,10 +107,9 @@ const addItemToOldList = (itemValue, itemId) => {
   newEl.draggable = true;
   newEl.className = "old--list--item";
   newEl.addEventListener("touchmove", () => {
-    renderPopup(itemValue);
-    deleteItemOldList(itemId);
+    deleteItemOldList(itemId, itemValue);
   });
-  newEl.addEventListener("click", (event) => {
+  newEl.addEventListener("click", () => {
     push(shoppingListInDB, itemValue);
     deleteItemOldList(itemId, itemValue);
   });
@@ -133,16 +132,20 @@ const deleteItemShoppingList = (id) => {
   remove(ref(database, `shoppingList/${id}`));
 };
 
-const deleteItemOldList = (id) => {
+const deleteItemOldList = (id, value) => {
+  if (value) {
+    renderPopup(value);
+  }
   remove(ref(database, `oldItemsList/${id}`));
 };
 
 const renderPopup = (value) => {
   togglePopup();
   popupEl.textContent = `${value} deleted`;
-  setTimeout(() => {
+  const timeout = setTimeout(() => {
     togglePopup();
   }, 1500);
+  clearTimeout(timeout);
 };
 
 const togglePopup = () => {
