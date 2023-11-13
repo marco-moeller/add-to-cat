@@ -19,7 +19,6 @@ const oldItemsListInDB = ref(database, "oldItemsList");
 const inputFieldEl = document.querySelector("#input-field");
 const shoppingListEl = document.querySelector("#shopping-list");
 const oldItemsListEl = document.querySelector("#old-items-list");
-const popupEl = document.querySelector("#popup");
 
 let shoppingList = [];
 let oldItemList = [];
@@ -133,21 +132,5 @@ const deleteItemShoppingList = (id) => {
 };
 
 const deleteItemOldList = (id, value) => {
-  if (value) {
-    renderPopup(value);
-  }
   remove(ref(database, `oldItemsList/${id}`));
-};
-
-const renderPopup = (value) => {
-  togglePopup();
-  popupEl.textContent = `${value} deleted`;
-  const timeout = setTimeout(() => {
-    togglePopup();
-  }, 1500);
-  clearTimeout(timeout);
-};
-
-const togglePopup = () => {
-  popupEl.classList.toggle("hidden");
 };
