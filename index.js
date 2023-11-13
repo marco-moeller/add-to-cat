@@ -142,7 +142,7 @@ const renderPopup = (value) => {
   popupEl.textContent = `${value} deleted`;
   setTimeout(() => {
     togglePopup();
-  }, 500);
+  }, 1500);
 };
 
 const togglePopup = () => {
