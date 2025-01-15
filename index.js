@@ -4,11 +4,11 @@ import {
   ref,
   push,
   onValue,
-  remove,
+  remove
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
 const appSettings = {
-  databaseURL: "https://realtime-database-3ad02-default-rtdb.firebaseio.com/",
+  databaseURL: "https://realtime-database-3ad02-default-rtdb.firebaseio.com/"
 };
 
 const app = initializeApp(appSettings);
@@ -38,9 +38,22 @@ addBtn.addEventListener("click", () => {
   buttonClick();
 });
 
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    buttonClick();
+  }
+});
+
 const buttonClick = () => {
   if (!isInList(inputFieldEl.value.toLowerCase())) {
     push(shoppingListInDB, inputFieldEl.value.toLowerCase());
+  }
+  if (isInOldList(inputFieldEl.value.toLowerCase())) {
+    push(shoppingListInDB, inputFieldEl.value.toLowerCase());
+    const itemIdInOldList = oldItemList.filter(
+      (item) => item[1].toLowerCase() === inputFieldEl.value.toLowerCase()
+    )[0][0];
+    deleteItemOldList(itemIdInOldList);
   }
   clearInput();
 };
@@ -58,10 +71,19 @@ const isInList = (newItem) => {
       isInOldList = true;
     }
   });
-  console.log(isInShoppingList);
-  console.log(isInOldList);
 
   return isInShoppingList || isInOldList;
+};
+
+const isInOldList = (newItem) => {
+  let isInOldList = false;
+  oldItemList.map((element) => {
+    if (element.includes(newItem)) {
+      isInOldList = true;
+    }
+  });
+
+  return isInOldList;
 };
 
 onValue(shoppingListInDB, (snapshot) => {
@@ -104,8 +126,8 @@ const addItemToShoppingList = (itemValue, itemId) => {
         addItemToOldList(itemValue, itemId);
         push(oldItemsListInDB, itemValue);
         deleteItemShoppingList(itemId);
-      },
-    },
+      }
+    }
   ]);
   shoppingListEl.append(newEl);
 };
@@ -117,8 +139,8 @@ const addItemToOldList = (itemValue, itemId) => {
       function: () => {
         push(shoppingListInDB, itemValue);
         deleteItemOldList(itemId, itemValue);
-      },
-    },
+      }
+    }
   ]);
 
   oldItemsListEl.append(newEl);
