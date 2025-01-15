@@ -83,9 +83,14 @@ button:hover {
 }
 
 .recycle-bin {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
   padding-bottom: 1em;
   display: flex;
   justify-content: center;
+  background-color: #eef0f4;
 }
 
 /* -- UTILITY -- */
