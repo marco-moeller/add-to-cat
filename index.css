@@ -91,6 +91,23 @@ button:hover {
   display: flex;
   justify-content: center;
   background-color: #eef0f4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.recycle-bin img {
+  height: 100px;
+  width: 100px;
+}
+
+.recycle-bin p {
+  font-size: 0.5em;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 0;
+  margin-top: 0.25em;
 }
 
 /* -- UTILITY -- */
