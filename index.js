@@ -24,16 +24,17 @@ let shoppingList = [];
 let oldItemList = [];
 
 const recycleBinGif = document.querySelector("#recycle-bin-gif");
-recycleBinGif.src = "/assets/trashbin-nobg.png?v=" + Date.now();
+recycleBinGif.src = "/assets/trashbin-nobg.png";
+console.log(recycleBinGif);
 
 const recycleBinEl = document.querySelector("#recycle-bin");
 recycleBinEl.addEventListener("drop", (event) => {
   event.preventDefault();
-  recycleBinGif.src = "/assets/trashbin-nobg.gif?v=" + Date.now();
+  recycleBinGif.src = "/assets/trashbin-nobg.gif";
   deleteItemOldList(event.dataTransfer.getData("text/plain"));
   deleteItemShoppingList(event.dataTransfer.getData("text/plain"));
   setTimeout(() => {
-    recycleBinGif.src = "/assets/trashbin-nobg.png?v=" + Date.now();
+    recycleBinGif.src = "/assets/trashbin-nobg.png";
   }, 1500);
 });
 recycleBinEl.addEventListener("dragover", (event) => {
