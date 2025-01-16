@@ -25,7 +25,7 @@ let oldItemList = [];
 
 const recycleBinGif = document.querySelector("#recycle-bin-gif");
 recycleBinGif.src = "/assets/trashbin-nobg.png";
-console.log(recycleBinGif);
+console.log(recycleBinGif.src);
 
 const recycleBinEl = document.querySelector("#recycle-bin");
 recycleBinEl.addEventListener("drop", (event) => {
