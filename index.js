@@ -23,8 +23,10 @@ const oldItemsListEl = document.querySelector("#old-items-list");
 let shoppingList = [];
 let oldItemList = [];
 
-const recycleBinEl = document.querySelector("#recycle-bin");
 const recycleBinGif = document.querySelector("#recycle-bin-gif");
+recycleBinGif.src = "/assets/trashbin-nobg.png?v=" + Date.now();
+
+const recycleBinEl = document.querySelector("#recycle-bin");
 recycleBinEl.addEventListener("drop", (event) => {
   event.preventDefault();
   recycleBinGif.src = "/assets/trashbin-nobg.gif?v=" + Date.now();
