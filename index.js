@@ -24,19 +24,19 @@ let shoppingList = [];
 let oldItemList = [];
 
 const recycleBinGif = document.querySelector("#recycle-bin-gif");
-recycleBinGif.src =
-  "https://add-to-cat-moeller.netlify.app//assets/trashbin-nobg.png";
+const img = new URL("/images/trashbin-nobg.png", import.meta.url);
+const gif = new URL("/images/trashbin-nobg.gif", import.meta.url);
+recycleBinGif.src = img;
+console.log(recycleBinGif.src);
 
 const recycleBinEl = document.querySelector("#recycle-bin");
 recycleBinEl.addEventListener("drop", (event) => {
   event.preventDefault();
-  recycleBinGif.src =
-    "https://add-to-cat-moeller.netlify.app//assets/trashbin-nobg.gif";
+  recycleBinGif.src = gif;
   deleteItemOldList(event.dataTransfer.getData("text/plain"));
   deleteItemShoppingList(event.dataTransfer.getData("text/plain"));
   setTimeout(() => {
-    recycleBinGif.src =
-      "https://add-to-cat-moeller.netlify.app//assets/trashbin-nobg.png";
+    recycleBinGif.src = img;
   }, 1500);
 });
 recycleBinEl.addEventListener("dragover", (event) => {
