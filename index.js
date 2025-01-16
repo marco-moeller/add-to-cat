@@ -27,11 +27,11 @@ const recycleBinEl = document.querySelector("#recycle-bin");
 const recycleBinGif = document.querySelector("#recycle-bin-gif");
 recycleBinEl.addEventListener("drop", (event) => {
   event.preventDefault();
-  recycleBinGif.src = "/assets/trashbin-nobg.gif";
+  recycleBinGif.src = "assets/trashbin-nobg.gif";
   deleteItemOldList(event.dataTransfer.getData("text/plain"));
   deleteItemShoppingList(event.dataTransfer.getData("text/plain"));
   setTimeout(() => {
-    recycleBinGif.src = "/assets/trashbin-nobg.png";
+    recycleBinGif.src = "assets/trashbin-nobg.png";
   }, 1500);
 });
 recycleBinEl.addEventListener("dragover", (event) => {
